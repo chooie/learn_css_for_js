@@ -1,0 +1,94 @@
+* {
+  box-sizing: border-box;
+  font-family: 'Lato', sans-serif;
+}
+
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+
+  background-color: var(--color-grey);
+}
+
+:root {
+  --standard-padding: 32px;
+
+  --color-white: hsl(0, 100%, 100%);
+  --color-green: hsl(160deg, 100%, 30%);
+  --color-grey: hsl(0deg, 0%, 60%);
+  --color-grey-dark: hsl(0deg, 0%, 40%);
+  --color-orange: hsl(45, 100%, 50%);
+  --color-orange-dark: hsl(45, 100%, 40%);
+
+  --border-color: var(--color-grey-dark);
+}
+
+.max-width-wrapper {
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.border-bottom-wrapper {
+  border-bottom: 8px solid var(--border-color);
+}
+
+.background-white {
+  background-color: var(--color-white);
+}
+
+.inline-padding {
+  padding-left: var(--standard-padding);
+  padding-right: var(--standard-padding);
+}
+
+.intro-chunk {
+  max-width: 500px;
+  padding-top: 96px;
+  padding-bottom: 48px;
+}
+
+.title {
+  font-size: 2rem;
+  margin-bottom: 64px;
+}
+
+p {
+  font-size: 1.5rem;
+}
+
+strong {
+  color: var(--color-green);
+}
+
+main {
+  padding-top: 96px;
+  padding-bottom: 64px;
+}
+
+.card {
+  padding-top: 10px;
+
+  background-color: var(--color-white);
+}
+
+.indented-heading {
+  --offset: 20px;
+  --offset-adjusted: calc(var(--standard-padding) + var(--offset));
+
+  --border-color: var(--color-orange-dark);
+
+  width: fit-content;
+
+  padding: var(--standard-padding);
+
+  padding-left: var(--offset-adjusted);
+  padding-right: var(--offset-adjusted);
+
+  margin: 0;
+  margin-left: calc(-1 * var(--offset-adjusted));
+
+  background-color: var(--color-orange);
+}
