@@ -283,4 +283,59 @@
    </html>
    ```
 
-1. Absolute-positioned shrink to fit the content.
+1. Absolute-positioned shrink to contain their content.
+
+1. As a general rule, positioned elements will always render on top of
+   non-positioned ones.
+
+1. z-index only works with positioned elements (and the children of grid and
+   flex layouts). It will have no effect on an element being rendered in Flow
+   layout.
+
+1. We can create a stacking context by combining a non-static position with a
+   z-index. Other ways:
+
+   1. Setting opacity to a value less than 1
+   1. Setting position to fixed or sticky (No z-index needed for these values!)
+   1. Applying a mix-blend-mode other than normal
+   1. Adding a z-index to a child inside a display: flex or display: grid
+      container
+   1. Using transform, filter, clip-path, or perspective
+   1. Explicitly creating a context with isolation: isolate (More on this soon!)
+   1. Full reference:
+      https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Positioning/Understanding_z_index/The_stacking_context.
+
+1. Can ALSO create a stacking context with: `isolation: isolate;`
+
+1. A portal is the concept of a child element being able to display in a
+   'global' context
+
+   1. For example, a modal rendering a child element so that it 'escapes' its
+      stacking context
+
+1. For fixed positioning, if a parent or grandparent uses the `transform`
+   property, it becomes the containing block for the fixed element,
+   **essentially transforming it into an absolutely-positioned element**
+
+   1. i.e. **Transformed parents can't have fixed children**
+
+1. **Always add a comment when employing `overflow: hidden;` declaration.
+   Future-you will thank you.**
+
+1. Sometimes, we'll want to use overflow-x or overflow-y to clip the overflow in
+   one axis, but not affect the other. Unfortunately, **this isn't possible in
+   CSS.**
+
+   1. Children of a scroll container are essentially locked inside that box.
+      They can't ever spill outside its parent's bounds. It doesn't matter if we
+      only set overflow-x or overflow-y. There's no such thing as a scroll
+      container that only scrolls in one axis.
+   1. We're given the ability to set discrete values for overflow-x and
+      overflow-y in case we want one axis to be hidden and one axis to be
+      scrollable. But that's all they're used for. They can't be used to allow
+      "normal" visible overflow in one axis.
+
+1. Sticky elements are in-flow and are only sticky to their parent container
+
+1. `position: sticky;` does nothing unless it's coupled with at least one `top`,
+   `bottom`, `left`, `right` value.
