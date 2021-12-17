@@ -1,0 +1,19 @@
+{
+  "cSpell.ignoreWords": [],
+  "cSpell.words": [
+    "chooie",
+    "esbuild",
+    "interactor",
+    "minmax",
+    "mothership",
+    "outfile",
+    "photoswipe"
+  ],
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": ["source.fixAll.format"],
+  "editor.bracketPairColorization.enabled": true,
+  "editor.guides.bracketPairs": "active",
+  "editor.formatOnSave": true,
+  "editor.rulers": [80],
+  "files.trimTrailingWhitespace": true
+}
