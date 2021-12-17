@@ -189,9 +189,9 @@
 
 ## Module 2
 
-1. Position default is static
+1. Default value of the `position` property is is `static`
 
-   1. Just means it’s not using static layout method
+   1. Just means it’s **not** using static layout method
    1. Using some other layout mode that could be flow, grid, or flexbox
 
 1. Position relative enables some attributes like top, right, bottom, left
@@ -339,3 +339,13 @@
 
 1. `position: sticky;` does nothing unless it's coupled with at least one `top`,
    `bottom`, `left`, `right` value.
+
+## Module 3
+
+1. styled-components allow you to put styles and behavior in an encapsulated
+   component
+
+1. details and summary HTML5 elements are a thing
+
+1. styled-components is easily my most enjoyable CSS experience and what I was
+   trying to do with using CSS in JS with Incremental IT, but much better
