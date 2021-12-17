@@ -14,26 +14,14 @@ const ProgressBar = ({ value, size }) => {
       aria-valuemax="100"
       size={size}
     >
-      <Bar size={size} value={value} />
-      <LargeVariantWrapper size={size} />
       <VisuallyHidden>{value}%</VisuallyHidden>
+
+      <BarWrapper size={size}>
+        <Bar size={size} value={value} />
+      </BarWrapper>
     </Wrapper>
   );
 };
-
-/**
- * We need to overlay this over the bar so that the bar can seamlessly start
- * rounding as it overflows under this border wrapper.
- *
- * When we just used the border, it didn't look right
- */
-function LargeVariantWrapper({ size }) {
-  if (size === "small" || size === "medium") {
-    return null;
-  }
-
-  return <LargeVariantBorderContainer></LargeVariantBorderContainer>;
-}
 
 const SIZES = {
   small: {
@@ -51,65 +39,33 @@ const SIZES = {
 };
 
 const Wrapper = styled.div`
-  overflow: hidden;
-  position: relative;
-
   width: 100%;
   height: ${(p) => SIZES[p.size].height};
 
+  padding: ${(p) => (p.size === "large" ? "4px" : 0)};
   border-radius: ${(p) => SIZES[p.size].radius};
-  background-color: ${COLORS.gray50};
+
+  background-color: ${COLORS.transparentGray15};
+  box-shadow: inset 0px 2px 4px ${COLORS.transparentGray35};
 `;
 
-const LargeVariantBorderContainer = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
+const BarWrapper = styled.div`
+  /* Trim off corners when progress bar is close to being 100% */
+  overflow: hidden;
 
   width: 100%;
   height: 100%;
 
-  border: 4px solid ${COLORS.gray50};
-  border-radius: 8px;
+  border-radius: 4px;
 `;
 
 const Bar = styled.div`
-  position: absolute;
-  left: ${(p) => setPosition(p.size)};
-  top: ${(p) => setPosition(p.size)};
-
-  width: ${(p) => setBarWidth(p)};
-  height: ${(p) => setBarHeight(p.size)};
+  width: ${(p) => p.value}%;
+  height: 100%;
 
   border-radius: 4px 0px 0px 4px;
 
   background-color: ${COLORS.primary};
 `;
-
-function setPosition(size) {
-  if (size === "large") {
-    return "4px";
-  }
-
-  return 0;
-}
-
-function setBarWidth(p) {
-  const width = `${p.value}%`;
-
-  if (p.size === "large") {
-    return `max(calc(${width} - 8px), 1px)`;
-  }
-
-  return width;
-}
-
-function setBarHeight(size) {
-  if (size === "large") {
-    return `calc(${SIZES[size].height} - 8px)`;
-  }
-
-  return "100%";
-}
 
 export default ProgressBar;
