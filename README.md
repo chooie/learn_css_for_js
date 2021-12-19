@@ -349,3 +349,20 @@
 
 1. styled-components is easily my most enjoyable CSS experience and what I was
    trying to do with using CSS in JS with Incremental IT, but much better
+
+1. Make an element's focus affect a different component
+
+   ```css
+   /* Fallback dotted outline if not in Chrome */
+   outline: 1px dotted #212121;
+   outline: 5px -webkit-focus-ring-color;
+   ```
+
+   1. Can also select a sibling element that comes **AFTER** the current element
+      ```css
+      ${Input}:focus ~ & {
+        outline: 1px dotted #212121;
+        outline: 5px auto -webkit-focus-ring-color;
+        outline-offset: 2px;
+      }
+      ```
