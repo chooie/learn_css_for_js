@@ -366,3 +366,6 @@
         outline-offset: 2px;
       }
       ```
+
+1. If you use a `label` element, clicking on anything in it will focus the
+   input. This is a nice user experience benefit.

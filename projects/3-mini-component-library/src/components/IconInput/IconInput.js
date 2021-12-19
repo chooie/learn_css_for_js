@@ -49,20 +49,18 @@ const IconInput = ({ label, icon, width = 250, size, placeholder }) => {
   );
 };
 
-const Wrapper = styled.div`
+const Wrapper = styled.label`
   position: relative;
   display: inline-flex;
   white-space: nowrap;
 
   width: ${(p) => `${p.width}px`};
 
-  &,
-  & input {
+  & {
     color: ${COLORS.gray700};
   }
 
-  &:hover,
-  &:hover input {
+  &:hover {
     color: ${COLORS.black};
   }
 `;
@@ -97,6 +95,8 @@ const Input = styled.input`
 
   font-size: var(--font-size);
   font-weight: 700;
+
+  color: inherit;
 
   &::placeholder {
     font-weight: 400;
