@@ -107,21 +107,27 @@ const overlayStyles = css`
   /* Don't block user selecting the input */
   pointer-events: none;
   position: absolute;
-  top: 0;
   left: 0;
-
-  width: 100%;
-  height: 100%;
 `;
 
 const Border = styled.div`
   ${overlayStyles}
 
-  border-bottom: var(--thickness) solid ${COLORS.black};
+  bottom: 0;
+
+  width: 100%;
+  height: var(--thickness);
+  background-color: ${COLORS.black};
+
+  border-radius: var(--thickness);
 `;
 
 const FocusOutline = styled.div`
   ${overlayStyles}
+
+  top: 0;
+  width: 100%;
+  height: 100%;
 
   ${Input}:focus ~ & {
     outline: 1px dotted #212121;
