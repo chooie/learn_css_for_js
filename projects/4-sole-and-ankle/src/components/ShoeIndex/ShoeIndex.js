@@ -46,11 +46,13 @@ const Wrapper = styled.div`
 `;
 
 const LeftColumn = styled.div`
-  flex: 1;
+  flex: 1 1 100px;
 `;
 
 const MainColumn = styled.div`
-  flex: 1;
+  flex: 1 1 1000px;
+
+  padding-left: 50px;
   margin-top: -10px;
 `;
 
