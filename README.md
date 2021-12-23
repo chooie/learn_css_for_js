@@ -369,3 +369,107 @@
 
 1. If you use a `label` element, clicking on anything in it will focus the
    input. This is a nice user experience benefit.
+
+# Module 4
+
+1. `display: flex;` affects that layout mode of the **children** of the block.
+   The block itself is still in its default layout mode.
+
+1. `justify-content` -> Primary axis
+
+1. `align-items` -> Cross axis
+
+1. `align-items: baseline;` to line up text at the bottom
+
+   1. Note there is currently a bug in Safari that requires input elements to
+      have a placeholder for things to line up correctly:
+      https://bugs.webkit.org/show_bug.cgi?id=142968
+
+1. `align-self: x;` is a thing
+
+1. Flex-box will overflow when there is not enough space to shrink (every item
+   is at it's min-content)
+1. For flex-box, width and height will shrink if there's not enough space. Think
+   of them more as 'suggestions'
+
+1. `width` and `flex-basis` do the same thing (in a row context):
+
+   1. Set the hypothetical width of an item
+   1. `height` and `flex-basis` do the same thing in a column context
+
+1. `flex-grow: 1;` tells element to consume all available space. **Even
+   overrides flex-basis**
+
+1. `flex-shrink` governs how _quickly_ an item will shrink relative to the other
+   items
+
+1. `flex-shrink` only affects items when when they're **between** their minimum
+   size and hypothetical size
+
+1. `flex-grow` only affects items when they're **above** their hypothetical size
+
+1. `flex-shrink: 0;` will prevent an element from shrinking to its minimum size
+
+1. Use shorthand `flex` rather than explicit values (recommended in the spec)
+
+   1. `flex: 1;` does this:
+      ```css
+      flex-grow: 1;
+      flex-basis: 0%;
+      ```
+      1. Won't affect the default value of `flex-shrink: 1;`
+      1. Since flex-basis is a synonym for width in a flex row, we're
+         effectively shrinking each child to have a “hypothetical width” of 0px,
+         and then distributing all of the space between each child.
+   1. Use this to set all items to the same dimensions (useful for equal column
+      layouts)
+
+1. Can use `min-width: 0px` to allow flexbox to shrink content below their
+   minimum width
+
+   <img
+       alt="Minimum width set to 0px showing overflow"
+       src="images/module_4/minimum-width.jpg"
+   />
+
+1. when we use the flex shorthand, we set flex-basis to 0, and this value will
+   override any width you set. In other words, width has no effect in this
+   snippet (when used inside a flex-direction: row container):
+
+   ```css
+   .item {
+     flex: 1;
+     width: 200px;
+   }
+   ```
+
+   To avoid this problem, it's best to use the flex shorthand, and to use
+   flex-basis:
+
+   ```css
+   .item {
+     flex: 1 1 200px;
+   }
+   ```
+
+1. The typical "header with controls look" can be done with flexbox and
+   `margin-right: auto`
+
+   <img
+       alt="Minimum width set to 0px showing overflow"
+       src="images/module_4/margin-right-auto-flexbox.jpg"
+     />
+
+1. `gap: {x}px;` will add spacing between child elements (but not the outside)
+
+1. When there is a conflict between layout modes, positioned layout always wins.
+
+1. Margin collapse is exclusive to Flow layout. It doesn't happen when elements
+   are laid out inside a flexbox parent.
+
+1. FlexBox and grid layouts both support z-index
+
+1. `position: sticky;` DOES work for flexbox items. You need to be careful about
+   the default `align-items: stretch;`. If you set the item to
+   `align-self: flex-start;`, you avoid the issue of it looking like sticky
+   elements don't work.
