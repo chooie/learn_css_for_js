@@ -2,7 +2,7 @@
 
 [This is the course](https://css-for-js.dev/)
 
-## Module 0
+## Module 0 – Fundamentals Recap
 
 1. CSS ‘declaration’ is a single property-value combination.
 
@@ -44,7 +44,7 @@
    width unless you set its display explicitly to something like
    `display: block;` or `display: inline-block;`.
 
-## Module 1
+## Module 1 – Rendering Logic 1
 
 1. Most properties that inherit are typography-related, like color, font-size,
    text-shadow:
@@ -187,7 +187,7 @@
 
 1. Padding, borders, and other sibling elements block margin collapse
 
-## Module 2
+## Module 2 – Rendering Logic II
 
 1. Default value of the `position` property is is `static`
 
@@ -340,7 +340,7 @@
 1. `position: sticky;` does nothing unless it's coupled with at least one `top`,
    `bottom`, `left`, `right` value.
 
-## Module 3
+## Module 3 – Modern Component Architecture
 
 1. styled-components allow you to put styles and behavior in an encapsulated
    component
@@ -370,7 +370,7 @@
 1. If you use a `label` element, clicking on anything in it will focus the
    input. This is a nice user experience benefit.
 
-# Module 4
+## Module 4 – FlexBox
 
 1. `display: flex;` affects that layout mode of the **children** of the block.
    The block itself is still in its default layout mode.
@@ -473,3 +473,130 @@
    the default `align-items: stretch;`. If you set the item to
    `align-self: flex-start;`, you avoid the issue of it looking like sticky
    elements don't work.
+
+1. You can perfectly center unbalanced layouts with invisible spacers
+
+   ```html
+   <Logo />
+   <Side>
+     <Logo />
+   </Side>
+   <nav>
+     <NavLink href="/sale">Sale</NavLink>
+     <NavLink href="/new">New&nbsp;Releases</NavLink>
+     <NavLink href="/men">Men</NavLink>
+     <NavLink href="/women">Women</NavLink>
+     <NavLink href="/kids">Kids</NavLink>
+     <NavLink href="/collections">Collections</NavLink>
+   </nav>
+   <Side />
+   ```
+
+   ```js
+   const Side = styled.div`
+     flex: 1;
+   `;
+   ```
+
+## Module 5 – Responsive and Behavioral CSS
+
+1. Use this:
+
+   ```html
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   ```
+
+   `width=device-width` instructs the browser to set the viewport width to match
+   the device's width
+
+   `initial-scale=1` says that we should start at 1x zoom.
+
+1. Use `@media (hover: hover) and (pointer: fine) {...}` for hover styles. It
+   doesn't make sense to include them for mobile.
+
+   |                                  | Hover     | Pointer    |
+   | -------------------------------- | --------- | ---------- |
+   | Mouse / Trackpad                 | **hover** | **fine**   |
+   | Touchscreen (smartphone, tablet) | _none_    | **coarse** |
+   | Keyboard (focus navigation)      | _none_    | _none_     |
+   | Eye-tracking                     | _none_    | **fine**   |
+   | Basic stylus digitizers          | _none_    | **fine**   |
+   | Sip-and-puff switches            | _none_    | _none_     |
+   | Microsoft Kinect / Wii remote    | **hover** | **coarse** |
+
+1. Don't use orientation media query – it's apparently not usually worth using
+
+1. The definitive approach to media queries:
+
+   ```js
+   // constants.js
+   // For this example, I'm going mobile-first.
+   const BREAKPOINTS = {
+     tabletMin: 550,
+     laptopMin: 1100,
+     desktopMin: 1500,
+   };
+   const QUERIES = {
+     tabletAndUp: `(min-width: ${BREAKPOINTS.tabletMin}px)`,
+     laptopAndUp: `(min-width: ${BREAKPOINTS.laptopMin}px)`,
+     desktopAndUp: `(min-width: ${BREAKPOINTS.desktopMin}px)`,
+   };
+   ```
+
+   We can even make them responsive to the font-size
+
+   ```js
+   // constants.js
+   const BREAKPOINTS = {
+     tabletMin: 550,
+     laptopMin: 1100,
+     desktopMin: 1500,
+   };
+   const QUERIES = {
+     tabletAndUp: `(min-width: ${BREAKPOINTS.tabletMin / 16}rem)`,
+     laptopAndUp: `(min-width: ${BREAKPOINTS.laptopMin / 16}rem)`,
+     desktopAndUp: `(min-width: ${BREAKPOINTS.desktopMin / 16}rem)`,
+   };
+   ```
+
+   Therefore, if the user cranks up their font-size, we will have less of an
+   issue with UIs looking 'cramped'
+
+1. CSS variables can be used to combine fragments together
+
+   ```css
+   body {
+     --standard-border-width: 4px;
+   }
+
+   strong {
+     --border-details: dashed goldenrod;
+     border: var(--standard-border-width) var(--border-details);
+   }
+   ```
+
+1. Nifty trick for width
+
+   ```css
+   width: clamp(500px, 65%, 800px);
+   max-width: 100%;
+   ```
+
+   Minimum width is 500px; Ideal width is 65% Maximum width is 800px OR 100% of
+   the container width
+
+   This means that element won't overflow for narrow device widths (like mobile
+   300px)
+
+1. Useful strategy for hero images: `min-height: min(80vh, 500px);`
+
+1. Horizontal scroll can be caused by things such as:
+
+   1. An element has an explicit width that is too large to fit in the parent
+      container.
+   1. A replaced element (eg. a video or an image) is used without constraining
+      its width to fit in the parent container.
+   1. A really long word like “disestablishmentarianism” forces an element to be
+      too wide for its parent container.
+   1. An element is explicitly pulled outside of the parent (positioned elements
+      with negative left/right values, elements with negative margin, etc).
