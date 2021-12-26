@@ -7,3 +7,7 @@ Description: Fully customizable, front end theme and template editing for WordPr
 Template: thrive-theme
 Tags: custom-background, custom-logo, custom-menu, featured-images, threaded-comments, translation-ready, custom-everything
 */
+
+.thrv_wrapper {
+  max-width: 100%;
+}

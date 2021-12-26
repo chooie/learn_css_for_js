@@ -789,6 +789,8 @@ video {
 }
 
 .prose img {
+	max-width: 100% !important;
+
 	margin-top: 2em;
 	margin-bottom: 2em;
 }
