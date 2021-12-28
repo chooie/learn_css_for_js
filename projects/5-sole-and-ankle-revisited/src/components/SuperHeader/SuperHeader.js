@@ -1,13 +1,38 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS } from '../../constants';
+import { COLORS, QUERIES } from "../../constants";
 
-import SearchInput from '../SearchInput';
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
+import SearchInput from "../SearchInput";
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+
+const QUERY = QUERIES.tabletAndDown;
 
 const SuperHeader = () => {
+  return (
+    <>
+      <Smaller />
+      <Larger />
+    </>
+  );
+};
+
+function Smaller() {
+  return <BlackBar />;
+}
+
+const BlackBar = styled.div`
+  display: none;
+
+  border-bottom: 4px solid ${COLORS.gray[900]};
+
+  @media ${QUERY} {
+    display: revert;
+  }
+`;
+
+function Larger() {
   return (
     <Wrapper>
       <MarketingMessage>
@@ -20,7 +45,7 @@ const SuperHeader = () => {
       </UnstyledButton>
     </Wrapper>
   );
-};
+}
 
 const Wrapper = styled.div`
   display: flex;
@@ -32,6 +57,10 @@ const Wrapper = styled.div`
   height: 40px;
   padding-left: 32px;
   padding-right: 32px;
+
+  @media ${QUERY} {
+    display: none;
+  }
 `;
 
 const MarketingMessage = styled.span`

@@ -1,10 +1,12 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { COLORS, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
+import { COLORS, WEIGHTS, QUERIES } from "../../constants";
+import Logo from "../Logo";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -17,7 +19,41 @@ const Header = () => {
   return (
     <header>
       <SuperHeader />
-      <MainHeader>
+      <MainHeader
+        showMobileMenu={showMobileMenu}
+        setShowMobileMenu={setShowMobileMenu}
+      />
+
+      <MobileMenu
+        isOpen={showMobileMenu}
+        onDismiss={() => setShowMobileMenu(false)}
+      />
+    </header>
+  );
+};
+
+function MainHeader(props) {
+  const { showMobileMenu, setShowMobileMenu } = props;
+
+  return (
+    <>
+      <Smaller>
+        <Logo />
+        <Side />
+
+        <ButtonsWrapper>
+          <UnstyledButton>
+            <Icon id="shopping-bag" strokeWidth={2} />
+          </UnstyledButton>
+          <UnstyledButton>
+            <Icon id="search" strokeWidth={2} />
+          </UnstyledButton>
+          <UnstyledButton onClick={() => setShowMobileMenu(!showMobileMenu)}>
+            <Icon id={showMobileMenu ? "close" : "menu"} strokeWidth={2} />
+          </UnstyledButton>
+        </ButtonsWrapper>
+      </Smaller>
+      <Larger>
         <Side>
           <Logo />
         </Side>
@@ -30,22 +66,47 @@ const Header = () => {
           <NavLink href="/collections">Collections</NavLink>
         </Nav>
         <Side />
-      </MainHeader>
-
-      <MobileMenu
-        isOpen={showMobileMenu}
-        onDismiss={() => setShowMobileMenu(false)}
-      />
-    </header>
+      </Larger>
+    </>
   );
-};
+}
 
-const MainHeader = styled.div`
+const Smaller = styled.div`
+  display: none;
+  padding: 18px 32px;
+
+  @media ${QUERIES.tabletAndDown} {
+    display: flex;
+    padding: 18px 32px;
+  }
+
+  @media ${QUERIES.mobileAndDown} {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+`;
+
+const ButtonsWrapper = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: 40px;
+
+  @media ${QUERIES.mobileAndDown} {
+    gap: 20px;
+  }
+`;
+
+const Larger = styled.div`
   display: flex;
   align-items: baseline;
   padding: 18px 32px;
   height: 72px;
   border-bottom: 1px solid ${COLORS.gray[300]};
+
+  @media ${QUERIES.tabletAndDown} {
+    display: none;
+  }
 `;
 
 const Nav = styled.nav`
