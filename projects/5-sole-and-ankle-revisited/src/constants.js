@@ -1,15 +1,15 @@
 export const COLORS = {
-  white: "hsl(0deg 0% 100%)",
-  passThrough: "hsl(220 5% 40% / 0.8)",
+  white: "var(--color-white)",
+  passThrough: "var(--color-pass-through)",
   gray: {
-    100: "hsl(185deg 5% 95%)",
-    300: "hsl(190deg 5% 80%)",
-    500: "hsl(196deg 4% 60%)",
-    700: "hsl(220deg 5% 40%)",
-    900: "hsl(220deg 3% 20%)",
+    100: "var(--color-grey-100)",
+    300: "var(--color-grey-300)",
+    500: "var(--color-grey-500)",
+    700: "var(--color-grey-700)",
+    900: "var(--color-grey-900)",
   },
-  primary: "hsl(340deg 65% 47%)",
-  secondary: "hsl(240deg 60% 63%)",
+  primary: "var(--color-primary)",
+  secondary: "var(--color-secondary)",
 };
 
 export const WEIGHTS = {
