@@ -36,7 +36,7 @@ function MainHeader(props) {
   const { showMobileMenu, setShowMobileMenu } = props;
 
   return (
-    <>
+    <MainHeaderWrapper>
       <Smaller>
         <Logo />
         <Side />
@@ -67,9 +67,15 @@ function MainHeader(props) {
         </Nav>
         <Side />
       </Larger>
-    </>
+    </MainHeaderWrapper>
   );
 }
+
+const MainHeaderWrapper = styled.div`
+  overflow-x: auto;
+
+  border-bottom: 1px solid ${COLORS.gray[300]};
+`;
 
 const Smaller = styled.div`
   display: none;
@@ -102,7 +108,6 @@ const Larger = styled.div`
   align-items: baseline;
   padding: 18px 32px;
   height: 72px;
-  border-bottom: 1px solid ${COLORS.gray[300]};
 
   @media ${QUERIES.tabletAndDown} {
     display: none;
@@ -110,9 +115,15 @@ const Larger = styled.div`
 `;
 
 const Nav = styled.nav`
+  --spacing: clamp(5px, 8vw - 1rem, 48px);
+
   display: flex;
-  gap: 48px;
-  margin: 0px 48px;
+  gap: var(--spacing);
+  margin: 0px var(--spacing);
+
+  & a:last-of-type {
+    padding-right: 32px;
+  }
 `;
 
 const Side = styled.div`
@@ -125,6 +136,7 @@ const NavLink = styled.a`
   text-decoration: none;
   color: ${COLORS.gray[900]};
   font-weight: ${WEIGHTS.medium};
+  white-space: nowrap;
 
   &:first-of-type {
     color: ${COLORS.secondary};
