@@ -616,3 +616,144 @@
 
 1.  Sometimes layouts SHOULD scale to the font-size. Using rems with media
     queries is perfectly valid if we want things to fluidly scale to font-size
+
+## Module 6 – Typography and Images
+
+1. Allow text to wrap, with hyphens:
+
+   ```css
+   p {
+     overflow-wrap: break-word;
+     hyphens: auto;
+
+     /* Prefix for Safari */
+     -webkit-hyphens: auto;
+   }
+   ```
+
+1. Weirdly, we need `overflow: hidden` in order for text-overflow to work. A bit
+   odd, but it is what it is.
+
+   ```css
+   p {
+     overflow: hidden;
+     text-overflow: ellipsis;
+   }
+   ```
+
+1. Multi-line ellipsis
+
+   ```css
+   p {
+     display: -webkit-box;
+     -webkit-box-orient: vertical;
+     -webkit-line-clamp: 3;
+     overflow: hidden;
+     margin-bottom: 1em;
+   }
+   ```
+
+   **Watch out for Flexbox/Grid!**
+
+   In certain cases, `-webkit-line-clamp` can appear buggy, showing thin slices
+   of truncated text below the ellipsis.
+
+   This can happen when the element we're applying these styles to is also used
+   as a Flexbox child / in a layout capacity.
+
+   To avoid possible issues, always apply line clamping to a paragraph tag that
+   isn't being stretched or flexed as part of flexbox or CSS Grid. We can solve
+   for this by using a wrapper div:
+
+1. Column layout
+
+   ```css
+   .wrapper {
+     columns: 3;
+     column-gap: 16px;
+     padding: 16px;
+   }
+
+   p {
+     break-inside: avoid;
+     margin-bottom: 16px;
+   }
+   ```
+
+1. Float
+
+   ```css
+   img {
+     float: left;
+     margin-right: 16px;
+   }
+   ```
+
+1. Indentation
+
+   ```css
+   p::first-letter {
+     margin-left: 2rem;
+   }
+   ```
+
+   or
+
+   ```css
+   p {
+     text-indent: 2rem;
+   }
+   ```
+
+1. `::first-letter` is still useful for certain typographical effects, like
+   "drop caps" (a larger first letter, typically on the first paragraph in a
+   page/chapter).
+
+1. Justified text: `text-align: justify;`
+
+1. Drop caps might be easier in the future (no support currently)
+
+   ```css
+   p:first-of-type {
+     initial-letter: 2; /* Number of lines to span */
+   }
+   ```
+
+1. `1ch` is equal to the width of the `0` character, at the current font size.
+
+1. Does setting a width of `50ch` mean that we'll get an average of 50
+   characters per line? Not exactly. Depending on your font, the `0` character
+   might be significantly thinner or thicker than average.
+
+1. Text-align and flexbox do different things
+
+   ```css
+   .with-text-align {
+     text-align: center;
+   }
+
+   .with-flexbox {
+     display: flex;
+     flex-direction: column;
+     align-items: center;
+   }
+
+   p {
+     max-width: 50ch;
+     padding: 16px;
+   }
+   ```
+
+   <img
+       alt="The text-align center block is to the left of the flexbox block"
+       src="images/module_6/text-align-vs-flexbox.jpg"
+   />
+
+1. The last font in the list should always be the "category" for the font, like
+   `serif`, `sans-serif`, `monospace`, or `cursive`.
+
+1. https://systemfontstack.com/
+
+1. Font optimization with self hosting:
+
+   https://courses.joshwcomeau.com/css-for-js/06-typography-and-media/10-font-optimization
