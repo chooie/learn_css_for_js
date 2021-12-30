@@ -757,3 +757,39 @@
 1. Font optimization with self hosting:
 
    https://courses.joshwcomeau.com/css-for-js/06-typography-and-media/10-font-optimization
+
+1. Variable fonts are a thing
+
+1. https://www.recursive.design/
+
+1. https://feathericons.com/
+
+1. Image clamping
+
+   ```css
+   img {
+     width: 100%;
+     min-height: 150px;
+     object-fit: cover;
+     object-position: 0% 50%;
+   }
+   ```
+
+1. Can use aspect-ratio now!
+
+1. AVIF is a new image format
+
+1. Image tool: https://squoosh.app/editor
+
+1. Can provide different pictures for background-image
+
+   ```css
+   @media (-webkit-min-device-pixel-ratio: 3), (min-resolution: 3dppx) {
+     body {
+       background-image: url("/course-materials/geometric-pattern@3x.png");
+     }
+   }
+   ```
+
+1. Cool CSS background tile patterns:
+   https://www.magicpattern.design/tools/css-backgrounds
