@@ -1,11 +1,11 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
 const PhotoGridItem = ({ id, src, alt, tags }) => {
   return (
     <article>
       <Anchor href={`/photos/${id}`}>
-        <Image src={src} />
+        <ResponsiveImage src={src} />
       </Anchor>
       <Tags>
         {tags.map((tag) => (
@@ -21,6 +21,30 @@ const Anchor = styled.a`
   color: inherit;
   outline-offset: 4px;
 `;
+
+function ResponsiveImage({ src }) {
+  return (
+    <picture>
+      <source
+        type="image/avif"
+        srcSet={`
+          ${src}.avif 1x,
+          ${src}@2x.avif 2x,
+          ${src}@3x.avif 3x,
+        `}
+      />
+      <source
+        type="image/jpg"
+        srcSet={`
+          ${src}.jpg 1x,
+          ${src}@2x.jpg 2x,
+          ${src}@3x.jpg 3x,
+        `}
+      />
+      <Image alt="" src={`${src}.jpg`} />
+    </picture>
+  );
+}
 
 const Image = styled.img`
   display: block;
