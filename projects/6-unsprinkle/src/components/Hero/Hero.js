@@ -3,6 +3,7 @@ import styled from "styled-components/macro";
 
 const Hero = () => {
   const src = "images/hero-img";
+  const alt = "A stripey cat with bright blue eyes staring directly forward";
 
   return (
     <Wrapper>
@@ -23,7 +24,7 @@ const Hero = () => {
             ${src}@3x.jpg 3x,
           `}
         />
-        <HeroImage alt="" src={`${src}.jpg`} />
+        <HeroImage alt={alt} src={`${src}.jpg`} />
       </picture>
       <Swoop src="/swoop.svg" />
     </Wrapper>

@@ -6,7 +6,7 @@ const PhotoGridItem = ({ id, src, alt, tags }) => {
     <article>
       <Anchor href={`/photos/${id}`}>
         <ImageWrapper>
-          <ResponsiveImage src={src} />
+          <ResponsiveImage src={src} alt={alt} />
         </ImageWrapper>
       </Anchor>
       <Tags>
@@ -24,7 +24,7 @@ const Anchor = styled.a`
   outline-offset: 4px;
 `;
 
-function ResponsiveImage({ src }) {
+function ResponsiveImage({ src, alt }) {
   return (
     <picture>
       <source
@@ -43,7 +43,7 @@ function ResponsiveImage({ src }) {
           ${src}@3x.jpg 3x,
         `}
       />
-      <Image alt="" src={`${src}.jpg`} />
+      <Image alt={alt} src={`${src}.jpg`} />
     </picture>
   );
 }
@@ -66,6 +66,9 @@ const Tags = styled.ul`
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
+
+  display: flex;
+  flex-wrap: nowrap;
 `;
 
 const Tag = styled.li`
@@ -74,6 +77,10 @@ const Tag = styled.li`
   font-size: 0.875rem;
   font-weight: 475;
   color: var(--color-gray-800);
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 `;
 
 export default PhotoGridItem;
