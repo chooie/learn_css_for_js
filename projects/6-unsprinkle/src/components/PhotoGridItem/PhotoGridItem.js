@@ -5,7 +5,9 @@ const PhotoGridItem = ({ id, src, alt, tags }) => {
   return (
     <article>
       <Anchor href={`/photos/${id}`}>
-        <ResponsiveImage src={src} />
+        <ImageWrapper>
+          <ResponsiveImage src={src} />
+        </ImageWrapper>
       </Anchor>
       <Tags>
         {tags.map((tag) => (
@@ -46,12 +48,18 @@ function ResponsiveImage({ src }) {
   );
 }
 
-const Image = styled.img`
-  display: block;
+const ImageWrapper = styled.div`
   width: 100%;
   height: 300px;
   border-radius: 2px;
   margin-bottom: 8px;
+`;
+
+const Image = styled.img`
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 `;
 
 const Tags = styled.ul`
