@@ -793,3 +793,200 @@
 
 1. Cool CSS background tile patterns:
    https://www.magicpattern.design/tools/css-backgrounds
+
+1. Wave Accessibility tool:
+   https://chrome.google.com/webstore/detail/wave-evaluation-tool/jbbplnpkjmmeebjpijfedlgcdilocofh/related
+
+### Module 7 – CSS Grid
+
+1. With `fr` units cells can grow to fit the content. It's not a hard rule like
+   `%`.
+
+1. Pixels, rems, and percentages are all hard limits.
+
+1. Holy grail layout with grid:
+
+   ```html
+   <!--
+   • The layout should span the entire page.
+   • A header should use a <header> tag, and be 4rem tall.
+   • The sidebar should use a <nav> tag, and be 200px wide.
+   • The main content area should use <main>, and fill the available space.
+   • The ad unit should use an <aside> tag, and be 150px wide.
+   • The footer should use a <footer> tag, and be 5rem tall.
+   -->
+
+   <style>
+     html,
+     body {
+       height: 100%;
+     }
+
+     .wrapper {
+       overflow: hidden;
+
+       min-height: 100%;
+       width: 100%;
+
+       display: grid;
+       grid-template-areas:
+         "header  header header"
+         "sidebar main   ad-unit"
+         "footer  footer footer";
+       grid-template-columns:
+         minmax(min-content, 200px) minmax(min-content, auto)
+         minmax(min-content, 150px);
+       grid-template-rows: 4rem auto 5rem;
+     }
+
+     header {
+       grid-area: header;
+     }
+
+     nav {
+       grid-area: sidebar;
+     }
+
+     main {
+       grid-area: main;
+     }
+
+     aside {
+       grid-area: ad-unit;
+     }
+
+     footer {
+       grid-area: footer;
+       height: 5rem;
+     }
+   </style>
+
+   <div class="wrapper">
+     <header>Header</header>
+
+     <nav>Sidebar</nav>
+
+     <main>
+       <h1>Main</h1>
+       <p>This is my super cool content. There is a lot of it.</p>
+
+       <p>It</p>
+       <p>scrolls</p>
+       <p>off</p>
+       <p>the</p>
+       <p>page.</p>
+       <p>This</p>
+       <p>is</p>
+       <p>filling</p>
+       <p>out</p>
+       <p>the</p>
+       <p>content.</p>
+     </main>
+
+     <aside>Ad Unit</aside>
+
+     <footer>Footer</footer>
+   </div>
+   ```
+
+   ```css
+   /*
+     These styles are purely presentational,
+     to make your grid children more distinctive
+   */
+   header,
+   nav,
+   aside,
+   main,
+   footer {
+     border: 3px solid;
+     padding: 16px;
+   }
+
+   header {
+     border-color: hsl(45deg 100% 50%);
+     background-color: hsl(45deg 100% 50% / 0.2);
+   }
+   nav {
+     border-color: hsl(170deg 100% 35%);
+     background-color: hsl(170deg 100% 35% / 0.2);
+   }
+   main {
+     border-color: hsl(220deg 100% 50%);
+     background-color: hsl(220deg 100% 50% / 0.2);
+   }
+   aside {
+     border-color: hsl(300deg 100% 45%);
+     background-color: hsl(300deg 100% 45% / 0.2);
+   }
+   footer {
+     border-color: hsl(350deg 100% 60%);
+     background-color: hsl(350deg 100% 60% / 0.2);
+   }
+
+   body {
+     padding: 0;
+     margin: 0;
+   }
+   ```
+
+1. ```css
+   .foo {
+     grid-template-columns: repeat(auto-fill, 150px);
+   }
+   ```
+
+1. `auto-fill` vs `auto-fit`
+
+   1. `auto-fill`: lots of empty columns
+   1. `auto-fit`: stretched ultra-wide columns
+
+1. "Full-bleed" example layout:
+
+   ```html
+   <style>
+     .wrapper {
+       --breathing-room: 16px;
+       display: grid;
+       grid-template-columns:
+         1fr
+         min(30ch, 100%)
+         1fr;
+       padding-left: var(--breathing-room);
+       padding-right: var(--breathing-room);
+     }
+     .wrapper > * {
+       grid-column: 2;
+     }
+     .full-bleed {
+       grid-column: 1 / -1;
+       margin-left: calc(var(--breathing-room) * -1);
+       margin-right: calc(var(--breathing-room) * -1);
+     }
+   </style>
+
+   <main class="wrapper">
+     <h1>Some Heading</h1>
+     <p>
+       Lorem Ipsum is simply dummy text of the printing and typesetting
+       industry. Lorem Ipsum has been the industry's standard dummy text ever
+       since the 1500s, when an unknown printer took a galley of type and
+       scrambled it to make a type specimen book. It has survived not only five
+       centuries, but also the leap into electronic typesetting, remaining
+       essentially unchanged.
+     </p>
+     <div class="full-bleed">
+       <img
+         alt="a satisfied-looking cute meerkat"
+         src="/course-materials/meerkat.jpg"
+         class="meerkat"
+       />
+     </div>
+     <p>
+       It was popularised in the 1960s with the release of Letraset sheets
+       containing Lorem Ipsum passages, and more recently with desktop
+       publishing software like Aldus PageMaker including versions of Lorem
+       Ipsum.
+     </p>
+   </main>
+   ```
