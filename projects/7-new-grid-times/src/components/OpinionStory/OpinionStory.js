@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components/macro";
 
+import { QUERIES } from "../../constants";
+
 const OpinionStory = ({ id, title, author, avatar }) => {
   return (
     <Link href={`/story/${id}`}>
@@ -16,10 +18,24 @@ const OpinionStory = ({ id, title, author, avatar }) => {
 };
 
 const Link = styled.a`
-  padding: 16px 0;
+  flex: 1;
+  padding-top: 16px;
+
+  &:first-child {
+    padding-top: 0;
+
+    @media ${QUERIES.tabletOnly} {
+      padding-top: 16px;
+    }
+  }
 
   &:not(:last-child) {
+    padding-bottom: 16px;
     border-bottom: 1px solid var(--color-gray-300);
+
+    @media ${QUERIES.tabletOnly} {
+      border-bottom: none;
+    }
   }
 `;
 
@@ -34,6 +50,10 @@ const Avatar = styled.img`
   height: 48px;
   border-radius: 50%;
   object-fit: cover;
+
+  @media ${QUERIES.tabletOnly} {
+    float: none;
+  }
 `;
 
 const AuthorName = styled.p`

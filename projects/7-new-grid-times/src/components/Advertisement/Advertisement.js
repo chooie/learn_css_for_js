@@ -1,6 +1,6 @@
-import React from 'react';
-import styled from 'styled-components/macro';
-import { QUERIES } from '../../constants';
+import React from "react";
+import styled from "styled-components/macro";
+import { QUERIES } from "../../constants";
 
 const Advertisement = (props) => {
   return (
@@ -20,6 +20,11 @@ const Wrapper = styled.div`
   flex-direction: column;
   align-items: center;
   gap: 8px;
+
+  @media ${QUERIES.desktopAndUp} {
+    padding-top: 8px;
+    border-top: 1px solid var(--color-gray-300);
+  }
 `;
 
 const Prefix = styled.p`
@@ -30,7 +35,7 @@ const Prefix = styled.p`
 
   &::before,
   &::after {
-    content: '—';
+    content: "—";
     margin: 0 8px;
   }
 `;

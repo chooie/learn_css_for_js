@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
+import { QUERIES } from "../../constants";
 
 const MainStory = ({ id, title, image, location, abstract, ...delegated }) => {
   return (
@@ -24,6 +25,15 @@ const Image = styled.img`
   display: block;
   width: 100%;
   margin-bottom: 12px;
+  border-radius: 4px;
+
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  object-position: 70% 0;
+
+  @media ${QUERIES.tabletAndUp} {
+    aspect-ratio: revert;
+  }
 `;
 
 const Heading = styled.h2`
