@@ -990,3 +990,12 @@
      </p>
    </main>
    ```
+
+1. Perfectly center middle item of a row
+
+   ```css
+   .foo {
+     display: grid;
+     grid-template-columns: 1fr auto 1fr;
+   }
+   ```

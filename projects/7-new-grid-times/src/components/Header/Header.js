@@ -41,14 +41,14 @@ function ResponsiveHeader() {
       </MobileHeader>
 
       <DesktopHeader>
-        <ActionGroup>
+        <DesktopActionGroup>
           <button>
             <Search size={24} />
           </button>
           <button>
             <Menu size={24} />
           </button>
-        </ActionGroup>
+        </DesktopActionGroup>
         <Logo />
         <SubscribeWrapper>
           <Button>Subscribe</Button>
@@ -87,6 +87,10 @@ const ActionGroup = styled.div`
   }
 `;
 
+const DesktopActionGroup = styled(ActionGroup)`
+  flex: 1;
+`;
+
 const MainHeader = styled(MaxWidthWrapper)`
   display: flex;
   align-items: baseline;
@@ -116,11 +120,14 @@ const DesktopHeader = styled(MainHeader)`
 `;
 
 const SubscribeWrapper = styled.div`
+  flex: 1;
+
   position: relative;
   top: -8px;
   display: flex;
   flex-direction: column;
   justify-content: center;
+  align-items: flex-end;
 `;
 
 const Link = styled.a`
