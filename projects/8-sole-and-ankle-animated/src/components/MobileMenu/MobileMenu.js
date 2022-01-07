@@ -20,12 +20,24 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
         </CloseButton>
         <Filler />
         <Nav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
+          <NavLink href="/sale" index={0}>
+            Sale
+          </NavLink>
+          <NavLink href="/new" index={1}>
+            New&nbsp;Releases
+          </NavLink>
+          <NavLink href="/men" index={2}>
+            Men
+          </NavLink>
+          <NavLink href="/women" index={3}>
+            Women
+          </NavLink>
+          <NavLink href="/kids" index={4}>
+            Kids
+          </NavLink>
+          <NavLink href="/collections" index={5}>
+            Collections
+          </NavLink>
         </Nav>
         <Footer>
           <SubLink href="/terms">Terms and Conditions</SubLink>
@@ -82,6 +94,7 @@ const slideIn = keyframes`
 `;
 
 const Content = styled(DialogContent)`
+  --slide-duration: 300ms;
   background: white;
   width: 300px;
   height: 100%;
@@ -90,7 +103,7 @@ const Content = styled(DialogContent)`
   flex-direction: column;
 
   @media ${QUERIES.motionAllowed} {
-    animation: ${slideIn} 300ms;
+    animation: ${slideIn} var(--slide-duration);
     animation-fill-mode: both;
     animation-timing-function: cubic-bezier(0.04, 0.6, 0.64, 0.94);
   }
@@ -101,6 +114,10 @@ const CloseButton = styled(UnstyledButton)`
   top: 10px;
   right: 0;
   padding: 16px;
+
+  animation: ${fadeIn} 1000ms;
+  animation-delay: var(--slide-duration);
+  animation-fill-mode: backwards;
 `;
 
 const Nav = styled.nav`
@@ -118,6 +135,14 @@ const NavLink = styled.a`
 
   &:first-of-type {
     color: var(--color-secondary);
+  }
+
+  @media ${QUERIES.motionAllowed} {
+    animation: ${fadeIn} 1000ms;
+    animation-fill-mode: backwards;
+    animation-delay: calc(
+      var(--slide-duration) + ${(props) => +props.index * 200}ms
+    );
   }
 `;
 

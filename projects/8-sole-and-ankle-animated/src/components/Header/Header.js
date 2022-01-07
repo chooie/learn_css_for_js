@@ -1,5 +1,5 @@
 import React from "react";
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
 
 import { QUERIES, WEIGHTS } from "../../constants";
 import Logo from "../Logo";
@@ -127,6 +127,26 @@ const NavMain = styled.span`
   display: block;
 `;
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const slideDown = keyframes`
+  from {
+    transform: translateY(0);
+  }
+
+  to {
+    transform: translateY(15px);
+  }
+`;
+
 const NavHover = styled.span`
   position: absolute;
   display: block;
@@ -139,8 +159,8 @@ const NavHover = styled.span`
   background: currentColor;
 
   font-weight: 900;
-  transition: transform 250ms, opacity 250ms;
-  transition-timing-function: ease-out;
+
+  transform: translateY(15px);
 `;
 
 const NavLinkWrapper = styled.a`
@@ -156,8 +176,13 @@ const NavLinkWrapper = styled.a`
   }
 
   &:hover ${NavHover} {
-    opacity: 1;
-    transform: translateY(15px);
+    animation: ${fadeIn} 500ms;
+    animation-fill-mode: both;
+
+    /* If motion allowed, also animate the translation */
+    @media ${QUERIES.motionAllowed} {
+      animation: ${fadeIn} 500ms both ease-in, ${slideDown} 500ms both ease-out;
+    }
   }
 `;
 
