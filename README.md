@@ -999,3 +999,144 @@
      grid-template-columns: 1fr auto 1fr;
    }
    ```
+
+### Module 8 – Animations
+
+1. `translate` percentage values refer to the **current element** rather than
+   the parent.
+
+   ```html
+   <style>
+     .relative.box {
+       position: relative;
+       left: 50%;
+     }
+     .transform.box {
+       transform: translateX(50%);
+     }
+   </style>
+
+   <div class="wrapper">
+     <div class="relative box"></div>
+     <div class="transform box"></div>
+   </div>
+   ```
+
+   <img
+       alt=""
+       src="images/module_8/transforms-vs-relative.png"
+   />
+
+1. `scale` also affects the size of text in an element
+
+1. It is **essential** to use `scale` and `translate` for transforms because
+   they essentially turn the things they are affecting into a texture. This is
+   so much more performant than changing things like the width or position
+   because it doesn't cause any of the layout algorithms to run
+
+1. `turn` unit is a thing
+
+   `transform: rotate(0.5turn);` is equivalent to `transform: rotate(180deg);`
+
+1. transforms have origins. e.g:
+
+   `transform-origin: left top;`
+
+1. Transform functions are applied from right to left, like composition in
+   functional programming. e.g.
+
+   `transform: rotate(45deg) translateX(100px);`
+
+1. Transforms don't work with inline elements in Flow layout
+
+1. Can animate multiple things:
+
+   `transition: transform 250ms, opacity 400ms;`
+
+   > `transition-property` takes a special value: all. When all is specified,
+   > any CSS property that changes will be transitioned.
+   >
+   > It can be tempting to use this value, as it saves us a good chunk of typing
+   > if we're animating multiple properties, but I recommend not using it.
+   >
+   > At some point in the future, you (or someone on your team) will change this
+   > CSS. You might add a new declaration that you don't want to transition.
+   > It's better to be specific, and avoid any unintended animations.
+   >
+   > Animation is like salt: too much of it spoils the dish.
+
+1. Place animation triggers as parents of the animating content. This avoids
+   things like 'doom flickers'
+
+1. `animation-direction: reverse;`
+
+1. `animation-direction: alternate;`
+
+1. `animation-fill-mode: forwards;`
+
+   Persist the styles after the animation plays
+
+1. Get in the habit of applying this:
+
+   ```css
+   .some-animated-element {
+     animation-fill-mode: both;
+   }
+   ```
+
+   <img
+       alt=""
+       src="images/module_8/fill-mode-both.svg"
+   />
+
+1. `animation-play-state: running | paused;` allows you to stop and pause
+   animations (with JS)
+
+1. Avoid `@keyframes` global name conflicts with styled-components
+
+   ```js
+   import styled, { keyframes } from "styled-components";
+   function App() {
+     return <FloatingCircle />;
+   }
+   const float = keyframes`
+     from {
+       transform: translateY(10px);
+     }
+     to {
+       transform: translateY(-10px);
+     }
+   `;
+   const FloatingCircle = styled.div`
+     animation: ${float} 1000ms infinite alternate ease-in-out;
+   `;
+   ```
+
+1. If we want to update the colors of the pixels on our screen, there's a
+   pipeline of possible steps:
+
+   **Recalculating style** — first, we need to figure out which CSS declarations
+   apply to which elements.
+
+   **Layout** — next, we need to figure out where each element sits on the page.
+
+   **Paint** — once we know where everything is, we can start painting them.
+   This is the process of figuring out which color every pixel should be
+   (“rasterization”), and filling it in.
+
+   **Compositing** — Finally, we can transform previously-painted elements.
+
+1. It's best to try and avoid animating any properties that affect layout: this
+   is things like `width`, `height`, `padding`, `margin`
+
+1. The transform property, however, is special: it can animate a property
+   without even triggering a paint step! Like with scrolling, it can reuse the
+   work done on previous steps.
+
+1. https://www.joshwcomeau.com/react/prefers-reduced-motion/#the-hook
+
+1. Web animations API is a thing
+
+1. https://github.com/framer/motion
+
+1. Inspiration: https://bruno-simon.com/
