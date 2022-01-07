@@ -93,8 +93,18 @@ const slideIn = keyframes`
 
 `;
 
+const flip = keyframes`
+  0% {
+    transform: translateX(100%) rotateY(180deg);
+  }
+
+  100% {
+    transform: translateX(0%) rotateY(0deg);
+  }
+`;
+
 const Content = styled(DialogContent)`
-  --slide-duration: 300ms;
+  --slide-duration: 1000ms;
   background: white;
   width: 300px;
   height: 100%;
@@ -103,7 +113,8 @@ const Content = styled(DialogContent)`
   flex-direction: column;
 
   @media ${QUERIES.motionAllowed} {
-    animation: ${slideIn} var(--slide-duration);
+    transform-origin: center right;
+    animation: ${flip} var(--slide-duration);
     animation-fill-mode: both;
     animation-timing-function: cubic-bezier(0.04, 0.6, 0.64, 0.94);
   }
