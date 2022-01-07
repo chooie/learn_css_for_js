@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { css, keyframes } from "styled-components";
+import { css } from "styled-components";
 
 import { QUERIES, WEIGHTS } from "../../constants";
 import { formatPrice, pluralize, isNewShoe } from "../../utils";

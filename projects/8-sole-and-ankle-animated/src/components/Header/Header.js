@@ -1,13 +1,13 @@
-import React from 'react';
-import styled from 'styled-components/macro';
+import React from "react";
+import styled from "styled-components/macro";
 
-import { QUERIES, WEIGHTS } from '../../constants';
-import Logo from '../Logo';
-import Icon from '../Icon';
-import UnstyledButton from '../UnstyledButton';
-import SuperHeader from '../SuperHeader';
-import MobileMenu from '../MobileMenu';
-import VisuallyHidden from '../VisuallyHidden';
+import { QUERIES, WEIGHTS } from "../../constants";
+import Logo from "../Logo";
+import Icon from "../Icon";
+import UnstyledButton from "../UnstyledButton";
+import SuperHeader from "../SuperHeader";
+import MobileMenu from "../MobileMenu";
+import VisuallyHidden from "../VisuallyHidden";
 
 const Header = () => {
   const [showMobileMenu, setShowMobileMenu] = React.useState(false);
@@ -51,6 +51,15 @@ const Header = () => {
     </header>
   );
 };
+
+function NavLink({ href, children }) {
+  return (
+    <NavLinkWrapper href={href}>
+      <NavMain>{children}</NavMain>
+      <NavHidden>{children}</NavHidden>
+    </NavLinkWrapper>
+  );
+}
 
 const MainHeader = styled.div`
   display: flex;
@@ -114,15 +123,37 @@ const Filler = styled.div`
   }
 `;
 
-const NavLink = styled.a`
+const NavMain = styled.span`
+  display: block;
+
+  transition: transform 250ms;
+`;
+
+const NavHidden = styled.span`
+  position: absolute;
+  display: block;
+
+  top: 100%;
+  font-weight: 900;
+  transition: transform 250ms;
+`;
+
+const NavLinkWrapper = styled.a`
+  position: relative;
   font-size: 1.125rem;
   text-transform: uppercase;
   text-decoration: none;
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
 
+  overflow: hidden;
+
   &:first-of-type {
     color: var(--color-secondary);
+  }
+
+  &:hover ${NavMain}, &:hover ${NavHidden} {
+    transform: translateY(-100%);
   }
 `;
 
