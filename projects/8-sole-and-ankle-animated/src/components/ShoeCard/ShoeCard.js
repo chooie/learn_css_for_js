@@ -1,6 +1,6 @@
 import React from "react";
 import styled from "styled-components/macro";
-import { css } from "styled-components";
+import { css, keyframes } from "styled-components";
 
 import { QUERIES, WEIGHTS } from "../../constants";
 import { formatPrice, pluralize, isNewShoe } from "../../utils";
@@ -78,13 +78,6 @@ const ImageInnerWrapper = styled.div`
   border-radius: 16px 16px 4px 4px;
 `;
 
-const growAnimation = css`
-  @media ${QUERIES.motionAllowed} {
-    transform: scale(1.1);
-    transition: transform 250ms;
-  }
-`;
-
 const Image = styled.img`
   /* Changing to display: block to avoid spacing issue */
   display: block;
@@ -92,19 +85,6 @@ const Image = styled.img`
 
   transition: transform 500ms;
   transform-origin: 50% 90%;
-
-  &:hover {
-    ${growAnimation}
-  }
-`;
-
-const Link = styled.a`
-  text-decoration: none;
-  color: inherit;
-
-  &:focus ${Image} {
-    ${growAnimation}
-  }
 `;
 
 const Row = styled.div`
@@ -144,6 +124,8 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
+
+  transition: transform 500ms;
 `;
 
 const SaleFlag = styled(Flag)`
@@ -151,6 +133,26 @@ const SaleFlag = styled(Flag)`
 `;
 const NewFlag = styled(Flag)`
   background-color: var(--color-secondary);
+`;
+
+const growAnimation = css`
+  @media ${QUERIES.motionAllowed} {
+    transform: scale(1.1);
+    transition: transform 250ms;
+  }
+`;
+
+const Link = styled.a`
+  text-decoration: none;
+  color: inherit;
+
+  &:focus ${Image}, &:hover ${Image} {
+    ${growAnimation}
+  }
+
+  &:focus ${Flag}, &:hover ${Flag} {
+    ${growAnimation}
+  }
 `;
 
 export default ShoeCard;
