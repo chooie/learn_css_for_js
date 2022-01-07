@@ -56,7 +56,7 @@ function NavLink({ href, children }) {
   return (
     <NavLinkWrapper href={href}>
       <NavMain>{children}</NavMain>
-      <NavHidden>{children}</NavHidden>
+      <NavHover />
     </NavLinkWrapper>
   );
 }
@@ -125,17 +125,22 @@ const Filler = styled.div`
 
 const NavMain = styled.span`
   display: block;
-
-  transition: transform 250ms;
 `;
 
-const NavHidden = styled.span`
+const NavHover = styled.span`
   position: absolute;
   display: block;
+  opacity: 0;
 
-  top: 100%;
+  height: 5px;
+  width: 100%;
+
+  bottom: 10px;
+  background: currentColor;
+
   font-weight: 900;
-  transition: transform 250ms;
+  transition: transform 250ms, opacity 250ms;
+  transition-timing-function: ease-out;
 `;
 
 const NavLinkWrapper = styled.a`
@@ -146,14 +151,13 @@ const NavLinkWrapper = styled.a`
   color: var(--color-gray-900);
   font-weight: ${WEIGHTS.medium};
 
-  overflow: hidden;
-
   &:first-of-type {
     color: var(--color-secondary);
   }
 
-  &:hover ${NavMain}, &:hover ${NavHidden} {
-    transform: translateY(-100%);
+  &:hover ${NavHover} {
+    opacity: 1;
+    transform: translateY(15px);
   }
 `;
 
