@@ -1,17 +1,18 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components/macro';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import React from "react";
+import styled, { keyframes } from "styled-components/macro";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { QUERIES, WEIGHTS } from "../../constants";
 
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
     <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+      <Background />
       <Content aria-label="Menu">
         <CloseButton onClick={onDismiss}>
           <Icon id="close" />
@@ -42,9 +43,42 @@ const Overlay = styled(DialogOverlay)`
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+`;
+
+const fadeIn = keyframes`
+from {
+  opacity: 0;
+}
+
+to {
+  opacity: inherit;
+}
+`;
+
+const Background = styled.div`
+  z-index: -1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-backdrop);
+
+  animation: ${fadeIn} 1000ms;
+  animation-fill-mode: backwards;
+`;
+
+const slideIn = keyframes`
+  0% {
+    transform: translateX(100%);
+  }
+
+  100% {
+    transform: translateX(0);
+  }
+
 `;
 
 const Content = styled(DialogContent)`
@@ -54,6 +88,12 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+
+  @media ${QUERIES.motionAllowed} {
+    animation: ${slideIn} 300ms;
+    animation-fill-mode: both;
+    animation-timing-function: cubic-bezier(0.04, 0.6, 0.64, 0.94);
+  }
 `;
 
 const CloseButton = styled(UnstyledButton)`
