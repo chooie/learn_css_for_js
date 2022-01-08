@@ -85,6 +85,7 @@ const Image = styled.img`
 
   transition: transform 500ms;
   transform-origin: 50% 90%;
+  will-change: transform;
 `;
 
 const Row = styled.div`
@@ -126,6 +127,7 @@ const Flag = styled.div`
   border-radius: 2px;
 
   transition: transform 500ms;
+  will-change: transform;
 `;
 
 const SaleFlag = styled(Flag)`
@@ -136,7 +138,7 @@ const NewFlag = styled(Flag)`
 `;
 
 const growAnimation = css`
-  @media ${QUERIES.motionAllowed} {
+  @media ${QUERIES.hasHoverAndMotionAllowed} {
     transform: scale(1.1);
     transition: transform 250ms;
   }

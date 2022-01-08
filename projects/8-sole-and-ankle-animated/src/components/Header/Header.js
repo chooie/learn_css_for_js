@@ -161,6 +161,7 @@ const NavHover = styled.span`
   font-weight: 900;
 
   transform: translateY(15px);
+  will-change: transform, opacity;
 `;
 
 const NavLinkWrapper = styled.a`

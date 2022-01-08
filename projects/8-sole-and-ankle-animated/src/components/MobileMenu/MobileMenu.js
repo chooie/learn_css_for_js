@@ -57,6 +57,7 @@ const Overlay = styled(DialogOverlay)`
   bottom: 0;
   display: flex;
   justify-content: flex-end;
+  perspective: 1000px;
 `;
 
 const fadeIn = keyframes`
@@ -95,16 +96,16 @@ const slideIn = keyframes`
 
 const flip = keyframes`
   0% {
-    transform: translateX(100%) rotateY(180deg);
+    transform: rotateY(-180deg);
   }
 
   100% {
-    transform: translateX(0%) rotateY(0deg);
+    transform: rotateY(0deg);
   }
 `;
 
 const Content = styled(DialogContent)`
-  --slide-duration: 1000ms;
+  --slide-duration: 300ms;
   background: white;
   width: 300px;
   height: 100%;
@@ -113,6 +114,7 @@ const Content = styled(DialogContent)`
   flex-direction: column;
 
   @media ${QUERIES.motionAllowed} {
+    transform-style: preserve-3d;
     transform-origin: center right;
     animation: ${flip} var(--slide-duration);
     animation-fill-mode: both;
