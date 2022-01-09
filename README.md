@@ -1140,3 +1140,355 @@
 1. https://github.com/framer/motion
 
 1. Inspiration: https://bruno-simon.com/
+
+### Module 9 – Little Big Details
+
+1. Can combine multiple filters
+
+   ```css
+   .image {
+     filter: brightness(120%) contrast(110%) grayscale(50%);
+   }
+   ```
+
+1. Cool way to do a 'glow effect':
+
+   ```css
+   <style>
+     body {
+       overflow: hidden;
+     }
+     .wrapper {
+       position: relative;
+     }
+     .gradient {
+       position: relative;
+       width: 200px;
+       height: 200px;
+       border-radius: 50%;
+       background-image: linear-gradient(
+         deeppink,
+         red,
+         coral,
+         gold,
+         white
+       );
+     }
+     .blurry {
+       position: absolute;
+       filter: blur(40px);
+       transform: scale(1.3) translateX(10%) rotate(30deg);
+     }
+     .regular {
+       filter: drop-shadow(0px 0px 25px hsl(0deg 0% 0% / 0.3));
+     }
+   </style>
+
+   <div class="wrapper">
+     <div class="gradient blurry"></div>
+     <div class="gradient regular"></div>
+   </div>
+   ```
+
+1. Nested border-radius
+
+   ```css
+   .card {
+     --inner-radius: 16px;
+     --padding: 8px;
+     border-radius: calc(var(--inner-radius) + var(--padding));
+     padding: var(--padding);
+   }
+   .avatar {
+     border-radius: var(--inner-radius);
+   }
+   ```
+
+1. Circular radius tricks:
+   https://courses.joshwcomeau.com/css-for-js/09-little-big-details/02.02-circular-radius
+
+1. For shadows, can use `box-shadow: x;` or `filter: drop-shadow(x);`
+
+   1. `drop-shadow` uses gaussian blurring
+
+1. `text-shadow` is a thing
+
+1. `filter: drop-shadow(x);` applies to any shape, not just a box
+
+1. To make things look a little bit more realistic, always add a slight
+   border-radius (e.g. `1px`);
+
+1. When using layered shadows (or maybe shadows generally?), try to avoid
+   animating them
+
+1. Coming up with a color pallette:
+   https://courses.joshwcomeau.com/css-for-js/treasure-trove/014-color-palettes
+
+1. Links
+
+   https://www.happyhues.co/palettes/3
+
+   https://material.io/design/color/the-color-system.html#tools-for-picking-colors
+
+   https://color.review/
+
+   https://webaim.org/resources/contrastchecker/
+
+1. Style the style selection colors
+
+   ```css
+   ::selection {
+     color: hsl(25deg 100% 20%);
+     background-color: hsl(55deg 100% 60%);
+   }
+   ```
+
+1. selection styles currently aren't inheritable because browsers aren't
+   supporting them (as of 2022)
+
+   Do this instead:
+
+   ```css
+   ::selection {
+     color: var(--selection-color);
+     background-color: var(--selection-background);
+   }
+
+   html {
+     /*
+         Define global defaults
+         for selection colors…
+       */
+     --selection-color: hsl(25deg 100% 20%);
+     --selection-background: hsl(55deg 100% 60%);
+   }
+
+   figure {
+     /*
+         …But then override those values
+         for specific parts of the page!
+       */
+     --selection-color: hsl(0deg 0% 0%);
+     --selection-background: hsl(333deg 100% 50%);
+   }
+   ```
+
+1. Easing gradient: https://larsenwork.com/easing-gradients/#editor
+
+1. Gradient generators:
+   https://courses.joshwcomeau.com/css-for-js/treasure-trove/013-gradient-generator
+
+1. Remove annoying grey rectangle that shows up on touch (only remove it when we
+   already provide some indication that the element has been interacted with)
+
+   ```css
+   .pushable {
+     -webkit-tap-highlight-color: transparent;
+   }
+   ```
+
+1. Can also remove highlighting
+
+   ```css
+   .pushable {
+     user-select: none;
+   }
+   ```
+
+1. Can restored pointer-events:
+
+   ```css
+   .toast-wrapper {
+     pointer-events: none;
+   }
+
+   .toast {
+     pointer-events: auto;
+   }
+   ```
+
+1. `clip-path` shapes https://bennettfeely.com/clippy/
+
+1. For `transition` to work for `clip-path`, the shapes must have the same
+   points. We can 'cheat' by adding multiple points to the same spot, though.
+
+1. `clip-path: path(x);` is a thing;
+   https://developer.mozilla.org/en-US/docs/Web/SVG/Attribute/d#path_commands
+
+1. If you want shadows around a `clip-path` element, you need to apply
+   `filter: drop-shadow(x);` to the parent
+
+1. Optical alignment
+
+   ```js
+   function ShiftBy({
+     x = 0,
+     y = 0,
+     children,
+     as = "div",
+     style = {},
+     ...delegated
+   }) {
+     const Element = as;
+     return (
+       <Element
+         style={{ transform: `translate(${x}px, ${y}px)` }}
+         {...delegated}
+       >
+         {children}
+       </Element>
+     );
+   }
+   ```
+
+1. Smooth scrolling:
+
+   ```css
+   @media (prefers-reduced-motion: no-preference) {
+     html {
+       scroll-behavior: smooth;
+     }
+   }
+   ```
+
+   NOTE: it's probably better, especially for SPAs, to do this on a case-by-case
+   basis:
+
+   ```js
+   function SmoothScrollTo({ id, children }) {
+     function handleClick(ev) {
+       // Disable the default anchor-clicking behavior
+       // of scrolling to the element
+       ev.preventDefault();
+       const target = document.querySelector(`#${id}`);
+       target?.scrollIntoView({
+         behavior: "smooth",
+       });
+     }
+     return (
+       <a href={`#${id}`} onClick={handleClick}>
+         {children}
+       </a>
+     );
+   }
+   ```
+
+1. Scroll snapping
+
+   ```css
+   .wrapper {
+     scroll-snap-type: x mandatory;
+     padding: 32px;
+   }
+   .box {
+     margin-left: 16px;
+     margin-right: 16px;
+     min-width: calc(100% - 32px);
+     scroll-snap-align: center;
+   }
+   ```
+
+1. Custom scrollbar colors:
+
+   ```css
+   html {
+     --background: hsl(210deg, 15%, 6.25%);
+     --text: hsl(210deg, 10%, 90%);
+     --gray-300: hsl(210deg, 10%, 40%);
+     --gray-500: hsl(210deg, 8%, 50%);
+
+     /* Official styles (Firefox) */
+     scrollbar-color: var(--gray-300) var(--background);
+     scrollbar-width: thin;
+   }
+
+   ::-webkit-scrollbar {
+     width: 10px;
+     background-color: var(--background);
+   }
+   ::-webkit-scrollbar-thumb {
+     border-radius: 1000px;
+     background-color: var(--gray-300);
+     border: 2px solid var(--background);
+   }
+   /*
+       Little bonus: on non-Firefox browsers,
+       the thumb will light up on hover!
+     */
+   ::-webkit-scrollbar-thumb:hover {
+     background-color: var(--gray-500);
+   }
+   ```
+
+   NOTE: avoid styling mobile scrollbars:
+
+   ```css
+   @media (min-width: 500px) {
+     html {
+       scrollbar-color: /* ... */ ;
+     }
+     ::-webkit-scrollbar {
+       /* ... */
+     }
+     ::-webkit-scrollbar-thumb {
+       /* ... */
+     }
+   }
+   ```
+
+1. You can add a scroll-margin to avoid things like navbars covering an element
+   when scrolled to:
+
+   ```css
+   h2 {
+     scroll-margin-top: 6rem;
+   }
+   ```
+
+1. Always have a scrollbar visible to avoid cumulative layout shifts (especially
+   useful when content loads in asynchronously and suddenly fills the page,
+   requiring a scrollbar)
+
+   ```css
+   body {
+     overflow-y: scroll;
+   }
+   ```
+
+1. `document.activeElement` gets the currently focused element
+
+1. `:focus-within` is a thing
+
+   Allows a child element that has focus to apply styles to the parent
+
+   e.g.
+
+   ```css
+   form:focus-within {
+     transform: translateY(-4px);
+     filter: drop-shadow(2px 4px 16px hsl(0deg 0% 0% / 0.2));
+   }
+   ```
+
+1. Floats can make really cool shapes to wrap text around:
+
+   ```css
+   .floated {
+     --breathing-room: 16px;
+     float: left;
+     shape-outside: url(/course-materials/me-light.png);
+     margin-right: var(--breathing-room);
+     shape-margin: var(--breathing-room);
+     width: 125px;
+   }
+   ```
+
+1. Prevent floated images from breaking layouts by adding a clearfix:
+
+   ```css
+   .clearfix::after {
+     content: "";
+     display: block;
+     clear: both;
+   }
+   ```
